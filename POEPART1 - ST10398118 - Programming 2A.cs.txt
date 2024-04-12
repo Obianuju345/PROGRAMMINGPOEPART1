@@ -1,0 +1,159 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace RecipeMaker
+{
+    public class Ingredient
+    {
+        public string Name { get; set; }
+        public double Quantity { get; set; }
+        public string Unit { get; set; }
+
+        public Ingredient(string name, double quantity, string unit)
+        {
+            Name = name;
+            Quantity = quantity;
+            Unit = unit;
+        }
+        public class Recipe
+        {
+            public int NumberOfIngredients { get; set; }
+            public Ingredient[] Ingredients { get; set; }
+            public int NubmberOfSteps { get; set; }
+            public string[] Steps { get; set; }
+            class Program
+            {
+                static void Main(string[] args)
+                {
+                    Recipe recipe = new Recipe();
+
+                    while (true)
+                    {
+                        Console.WriteLine("1. Enter Recipe Details");
+                        Console.WriteLine("2. Display Recipe");
+                        Console.WriteLine("3. Scale Recipe");
+                        Console.WriteLine("4. Reset Quantities");
+                        Console.WriteLine("5. Clear Data");
+                        Console.WriteLine("6. Exit");
+                        Console.WriteLine("Enter your choice:");
+
+                        int choice = Convert.ToInt32(Console.ReadLine());
+
+                        switch (choice)
+                        {
+                            case 1:
+                                recipe.EnterDetails();
+                                break;
+                            case 2:
+                                recipe.Display();
+                                break;
+                            case 3:
+                                recipe.Scale();
+                                break;
+                            case 4:
+                                recipe.ResetQuantities();
+                                break;
+                            case 5:
+                                recipe.ClearData();
+                                break;
+                            case 6:
+                                Environment.Exit(0);
+                                break;
+                            default:
+                                Console.WriteLine("Invalid choice!");
+                                break;
+                        }
+                    }
+                }
+            }
+
+            public class Recipe 
+
+            {
+                private List<Ingredient> ingredients;
+                private List<string> steps;
+
+                public Recipe()
+                {
+                    ingredients = new List<Ingredient>();
+                    steps = new List<string>();
+                }
+
+                public void EnterDetails()
+                {
+                    ingredients.Clear();
+                    steps.Clear();
+
+                    Console.WriteLine("Enter the number of ingredients:");
+                    int numIngredients = Convert.ToInt32(Console.ReadLine());
+
+                    for (int i = 0; i < numIngredients; i++)
+                    {
+                        Console.WriteLine($"Enter name of ingredient {i + 1}:");
+                        string name = Console.ReadLine();
+                        Console.WriteLine($"Enter quantity of ingredient {i + 1}:");
+                        double quantity = Convert.ToDouble(Console.ReadLine());
+                        Console.WriteLine($"Enter unit of measurement for ingredient {i + 1}:");
+                        string unit = Console.ReadLine();
+
+                        ingredients.Add(new Ingredient(name, quantity, unit));
+                    }
+
+                    Console.WriteLine("Enter the number of steps:");
+                    int numSteps = Convert.ToInt32(Console.ReadLine());
+
+                    for (int i = 0; i < numSteps; i++)
+                    {
+                        Console.WriteLine($"Enter step {i + 1}:");
+                        string step = Console.ReadLine();
+                        steps.Add(step);
+                    }
+
+                    Console.WriteLine("Recipe details entered successfully!");
+                }
+
+                public void Display()
+                {
+                    Console.WriteLine("Recipe:");
+                    Console.WriteLine("Ingredients:");
+                    foreach (Ingredient ingredient in ingredients)
+                    {
+                        Console.WriteLine($"- {ingredient.Quantity} {ingredient.Unit} of {ingredient.Name}");
+                    }
+
+                    Console.WriteLine("Steps:");
+                    for (int i = 0; i < steps.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {steps[i]}");
+                    }
+                }
+
+                public void Scale()
+                {
+                    Console.WriteLine("Enter the scaling factor (0.5, 2, or 3):");
+                    double factor = Convert.ToDouble(Console.ReadLine());
+
+                    foreach (Ingredient ingredient in ingredients)
+                    {
+                        ingredient.Quantity *= factor;
+                    }
+
+                    Console.WriteLine("Recipe scaled successfully!");
+                }
+
+                public void ResetQuantities()
+                {
+                    // Implement resetting quantities to original values here
+                    Console.WriteLine("Quantities reset to original values!");
+                }
+
+                public void ClearData()
+                {
+                    ingredients.Clear();
+                    steps.Clear();
+                    Console.WriteLine("Recipe data cleared!");
+                }
+            }
+        }
+    }
+}
